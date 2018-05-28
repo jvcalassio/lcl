@@ -50,7 +50,7 @@
 
 char tabuleiro[10][135];
 int altura=10, largura=135;
-int probX=45, probF=40;
+int probX=40, probF=20;
 int velocidade=50000;
 int combustivel=400, pontos=0;
 
@@ -68,14 +68,13 @@ void gameover(int x){
     printf(" \\_, /\\_,_/_/_/_/\\__/  \\___/___/\\__/_/   "); printf("\n");
     printf("/___/                                    "); printf("\n");
     printf("\n");
-    if(x==0){
+    if(x==0)
         printf("Seu combustível acabou!!\n");
-        printf("Pressione ENTER para voltar à tela inicial\n");
-    }
-    else if(x==1){
+    else if(x==1)
         printf("Você bateu!!\n");
-        printf("Pressione ENTER para voltar à tela inicial\n");
-    }
+    
+    printf("Você fez %d pontos\n", pontos);
+    printf("Pressione ENTER para voltar à tela inicial\n");
     while(c!=10){
         c = getch();
         if(c==10){
@@ -89,7 +88,13 @@ void print_tabuleiro(){
     int linha, coluna;/*dimensoes da matriz*/
     for(linha=0; linha<altura; linha++){
         for(coluna=0; coluna<largura; coluna++){
-            printf("%c", tabuleiro[linha][coluna]);
+            /*imprimindo os 'x' com cor vermelha*/
+            if(tabuleiro[linha][coluna]=='X')
+                printf("\e[1;31m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);
+            else if(tabuleiro[linha][coluna]=='F')
+                printf("\e[1;34m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);
+            else
+                printf("%c", tabuleiro[linha][coluna]);
         }
         printf("\n");
     }
