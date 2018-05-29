@@ -50,36 +50,43 @@
 
 char tabuleiro[10][135];
 int altura=10, largura=135;
-int probX=29, probF=14;
+int probX=20, probF=10;
 int velocidade=50000;
-int combustivel=400, pontos=0;
+int combustivel, pontos;
+/*flags que auxiliam no fechamento correto do jogo*/
+int sair;/*é 1 caso o usuário opte por sair e 0 caso contrario*/
+int fim;/*é 1 caso ocorra gameover e 0 caso contrario*/
 
 int usleep();
 void mainmenu();
 void jogo();
 
 /*mostra uma tela de gameover*/
-void gameover(int x){
-    system(CLEAR);
-    int c=0; /*recebe o inteiro correspondente a tecla apertada*/
-    printf("\n");
-    printf("  ___ ____ ___ _  ___   ___ _  _____ ____"); printf("\n");
-    printf(" / _ `/ _ `/  ' \\/ -_) / _ \\ |/ / -_) __/"); printf("\n");
-    printf(" \\_, /\\_,_/_/_/_/\\__/  \\___/___/\\__/_/   "); printf("\n");
-    printf("/___/                                    "); printf("\n");
-    printf("\n");
-    if(x==0)
-        printf("Seu combustivel acabou!\n");
-    else if(x==1)
-        printf("Voce bateu!\n");
-    
-    printf("Voce fez %d pontos.\n", pontos);
-    printf("Pressione ESPACO para voltar a tela inicial.\n");
-    while(c!=32){
-        c = getch();
-        if(c==32)/*ESPAÇO pressionado*/
-            jogo();
+void gameover(int x){/*x é o motivo do fim de jogo*/
+    if(!fim){
+        system(CLEAR);
+        int c=0; /*recebe o inteiro correspondente a tecla apertada*/
+        printf("\n");
+        printf("  ___ ____ ___ _  ___   ___ _  _____ ____"); printf("\n");
+        printf(" / _ `/ _ `/  ' \\/ -_) / _ \\ |/ / -_) __/"); printf("\n");
+        printf(" \\_, /\\_,_/_/_/_/\\__/  \\___/___/\\__/_/   "); printf("\n");
+        printf("/___/                                    "); printf("\n");
+        printf("\n");
+        if(x==0)
+            printf("Seu combustivel acabou!\n");
+        else if(x==1)
+            printf("Voce bateu!\n");
+        printf("Voce fez %d pontos.\n", pontos);
+        printf("Pressione ESPACO para voltar a tela inicial.\n");
+        while(c!=32){
+            c = getch();
+                if(c==32){
+                    fim=1;
+                    jogo();
+                }
+        }
     }
+    system(CLEAR);
 }
 
 /*mostra o atual tabuleiro na tela*/
@@ -89,9 +96,9 @@ void print_tabuleiro(){
         for(coluna=0; coluna<largura; coluna++){
             /*imprimindo os 'x' com cor vermelha*/
             if(tabuleiro[linha][coluna]=='X')
-                printf("\e[1;31m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);
+                printf("\e[1;31m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);/*printando x com cor vermelha*/
             else if(tabuleiro[linha][coluna]=='F')
-                printf("\e[1;34m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);
+                printf("\e[1;34m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);/*printando f com cor azul*/
             else
                 printf("%c", tabuleiro[linha][coluna]);
         }
@@ -129,7 +136,7 @@ void fimdemapa(){
 }
 
 /*move os elementos do tabuleiro*/
-/*e é responsavel pelas colisoes*/
+/*e é responsavel pelas colisoes horizontais*/
 void movertabuleiro(){
     int linha, coluna; /*dimensoes da matriz*/
     for(linha=1; linha<(altura-1); linha++){ /*exclui-se a primeira e a ultima linhas pois elas delimitam o mapa*/
@@ -254,7 +261,7 @@ void start(){
     set_tabuleiro(posicaonave);
     int moveu, atirou; /*valem 1 caso a nave se mexa ou atire, respectivamente, e 0 caso contrario*/
     int c;/*recebe o inteiro correspondente a tecla pressionada*/
-    while(combustivel>=0){
+    while(combustivel>=0 && !sair){
         moveu=0; atirou=0;
         usleep(velocidade);
         system(CLEAR);
@@ -315,9 +322,11 @@ void mainmenu() {
         switch(c){
             /*j pressionado*/
             case 106:
+                combustivel=400; pontos=0; fim=0; sair=0;
                 start();
                 break;
             case 74:
+                combustivel=400; pontos=0; fim=0; sair=0;
                 start();
                 break;
             /*i pressionado*/            
@@ -329,10 +338,12 @@ void mainmenu() {
                 break;
             /*s pressionado*/
             case 115:
-                jogo();
+                system(CLEAR);
+                sair=1;/*impede que o jogo rode caso seja dada a instruçao de saida*/
                 break;
             case 83:
-                jogo();
+                system(CLEAR);
+                sair=1;/*impede que o jogo rode caso seja dada a instruçao de saida*/
                 break;
             default:
                 break;
@@ -342,7 +353,6 @@ void mainmenu() {
 
 /*mostra uma tela de boas-vindas*/
 void jogo () {
-    combustivel=400; pontos=0;
     int c=0; /*recebe o inteiro correspondente a tecla pressionada*/
     system(CLEAR);
     printf("\n");
@@ -353,13 +363,11 @@ void jogo () {
     printf(" \\ \\_\\  \\ \\_\\ \\___/ \\ \\____\\\\ \\_\\      \\ \\_\\\\ \\__/.\\_\\\\ \\_\\ \\___,_\\"); printf("\n");
     printf("  \\/_/   \\/_/\\/__/   \\/____/ \\/_/       \\/_/ \\/__/\\/_/ \\/_/\\/__,_ /"); printf("\n");
     printf("\n");
-    printf("Pressione ESPACO para continuar ou 'S' para sair.\n");
-    while(c!=32 && c!=115 && c!=83){
+    printf("Pressione ESPACO para continuar.\n");
+    while(c!=32){
         c = getch();
         if(c == 32)/*ESPAÇO pressionado*/
             mainmenu();
-        if(c==115 || c==83)
-            system(CLEAR);
     }
 }
 
