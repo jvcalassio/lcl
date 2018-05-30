@@ -62,7 +62,7 @@ feito em linguagem C, e executado diretamente no terminal.
     #define CLEAR "clear"
 #endif
 
-#define RAND ((rand()%100 + 1))
+#define RAND() (rand()%100 + 1)
 
 char tabuleiro[10][135];
 int altura=10, largura=135;
@@ -211,11 +211,12 @@ void movertabuleiro(){
 void spawn() {
     int coluna=(largura-1); /*os mobs sempre aparecem na ultima coluna*/
     int r = (rand()%(altura-2))+1; /*decisao pseudorandomica da linha que o x ou f aparecera*/
-    if(RAND<=probF){
+    int x = RAND(); /*decisao pseudorancomica se x ou f aparecera*/
+    if(x<=probF){
         if(tabuleiro[r][coluna-1]==' ') /*para que nao acontecam x e f juntos (xf ou fx)*/
             tabuleiro[r][coluna]='F';
     }
-    else if(RAND>probF && RAND<=(probF+probX)){
+    else if(x>probF && x<=(probF+probX)){
         if(tabuleiro[r][coluna-1]==' ')/*para que nao acontecam x e f juntos (xf ou fx)*/
             tabuleiro[r][coluna]='X';
     }
@@ -284,12 +285,24 @@ void start(){
         print_tabuleiro();
         if(kbhit()==1){
             c = getch();
-            if(c==119 || c==115 || c==87 || c==83){/*w ou s pressionado*/
+            if(c!=119 && c!=115 && c!=87 && c!=83 && c!=107 && c!=75){/*penalidade caso outra tecla seja pressionada*/
+                int x = RAND();
+                if(x<=50)/*50 por cento de chance de movimento para cima*/
+                    c=119;
+                else if(x>50)/*50 por cento de chance de movimento para baixo*/
+                    c=115;
+            }
+            if((c==119 || c==87) && posicaonave>1){/*w pressionado*/
                 movernave(c, &posicaonave);
                 combustivel-=2;
                 moveu=1;
             }
-            else if(c==107 || c==75){/*k pressionado*/
+            else if((c==115 || c==83) && posicaonave<8){/*s pressionado*/
+                movernave(c, &posicaonave);
+                combustivel-=2;
+                moveu=1;
+            }
+            else if(c==107 || c==75){/*k pressionado*//*tiro*/
                 atirar(posicaonave);
                 combustivel-=3;
                 atirou=1;
@@ -312,12 +325,14 @@ void instrucoes() {
     int c;/*recebe o inteiro correspondente a tecla pressionada*/
     printf("'+' eh o avatar do jogador;\n");
     printf("Utilize 'w' para mover-se para cima, e 's' para mover-se para baixo;\n");
-    printf("'X' representa os inimigos, 'F' representa o combustivel;\n");
     printf("Utilize 'k', para atirar;\n");
-    printf("Ficar parado gasta 1 em combustivel, mover-se gasta 2, e atirar, 4;\n");
+    printf("'X' representa os inimigos, 'F' representa o combustivel;\n");
     printf("Atirar nos 'X' soma 50 ao total de pontos;\n");
+    printf("Recolher os 'F' soma 40 ao total de combustivel;\n");
+    printf("Ficar parado gasta 1 em combustivel, mover-se gasta 2, e atirar, 4;\n");
     printf("Por padrao o jogador recebe 1 enquanto estiver vivo;\n");
-    printf("O jogo acaba quando o avatar atinge algum 'X' ou quando o combustivel acaba.\n");
+    printf("O jogo acaba quando o avatar atinge algum 'X' ou quando o combustivel acaba;\n");
+    printf("Caso o jogador aperte alguma tecla invalida, o avatar realizara um movimento aleatorio;\n");
     printf("\n");
     printf("Pressione ESPACO para retornar ao menu.\n");
     while(c!=32){
