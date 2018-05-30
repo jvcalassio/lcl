@@ -54,15 +54,15 @@ int probX=20, probF=10;
 int velocidade=50000;
 int combustivel, pontos;
 /*flags que auxiliam no fechamento correto do jogo*/
-int sair;/*é 1 caso o usuário opte por sair e 0 caso contrario*/
-int fim;/*é 1 caso ocorra gameover e 0 caso contrario*/
+int sair;/*eh 1 caso o usuario opte por sair e 0 caso contrario*/
+int fim;/*eh 1 caso ocorra gameover e 0 caso contrario*/
 
 int usleep();
 void mainmenu();
 void jogo();
 
 /*mostra uma tela de gameover*/
-void gameover(int x){/*x é o motivo do fim de jogo*/
+void gameover(int x){/*x eh o motivo do fim de jogo*//*1 eh batida*//*0 eh falta de combustivel*/
     if(!fim){
         system(CLEAR);
         int c=0; /*recebe o inteiro correspondente a tecla apertada*/
@@ -94,7 +94,6 @@ void print_tabuleiro(){
     int linha, coluna;/*dimensoes da matriz*/
     for(linha=0; linha<altura; linha++){
         for(coluna=0; coluna<largura; coluna++){
-            /*imprimindo os 'x' com cor vermelha*/
             if(tabuleiro[linha][coluna]=='X')
                 printf("\e[1;31m" "%c" "\e[1;0m", tabuleiro[linha][coluna]);/*printando x com cor vermelha*/
             else if(tabuleiro[linha][coluna]=='F')
@@ -122,7 +121,7 @@ void set_tabuleiro(int posicaonave){
     tabuleiro[posicaonave][0]='+';
 }
 
-/*faz com que os tiros ou 'f' ou 'x' que chegaram ao final do mapa, desapareçam*/
+/*faz com que os tiros ou 'f' ou 'x' que chegaram ao final do mapa, desaparecam*/
 void fimdemapa(){
     int linha, coluna; /*dimensoes do tabuleiro*/
     for(linha=1; linha<(altura-1); linha++){
@@ -136,7 +135,7 @@ void fimdemapa(){
 }
 
 /*move os elementos do tabuleiro*/
-/*e é responsavel pelas colisoes horizontais*/
+/*e eh responsavel pelas colisoes horizontais*/
 void movertabuleiro(){
     int linha, coluna; /*dimensoes da matriz*/
     for(linha=1; linha<(altura-1); linha++){ /*exclui-se a primeira e a ultima linhas pois elas delimitam o mapa*/
@@ -192,21 +191,21 @@ void movertabuleiro(){
     }
 }
 
-/*responsável por gerar 'F' ou 'X' no tabuleiro*/
+/*responsavel por gerar 'F' ou 'X' no tabuleiro*/
 void spawn() {
     int coluna=(largura-1); /*os mobs sempre aparecem na ultima coluna*/
-    int r = (rand()%(altura-2))+1; /*decisao pseudorandomica da linha que o x ou f aparecerá*/
+    int r = (rand()%(altura-2))+1; /*decisao pseudorandomica da linha que o x ou f aparecera*/
     if(RAND<=probF){
-        if(tabuleiro[r][coluna-1]==' ') /*para que nao aconteçam x e f juntos (xf ou fx)*/
+        if(tabuleiro[r][coluna-1]==' ') /*para que nao acontecam x e f juntos (xf ou fx)*/
             tabuleiro[r][coluna]='F';
     }
     else if(RAND>probF && RAND<=(probF+probX)){
-        if(tabuleiro[r][coluna-1]==' ')/*para que nao aconteçam x e f juntos (xf ou fx)*/
+        if(tabuleiro[r][coluna-1]==' ')/*para que nao acontecam x e f juntos (xf ou fx)*/
             tabuleiro[r][coluna]='X';
     }
 }
 
-/*responsável pelos tiros '>'*/
+/*responsavel pelos tiros '>'*/
 void atirar(int posicaonave){
     if(tabuleiro[posicaonave][1]=='F')/*caso exista um f na frente da nave*/
         tabuleiro[posicaonave][1]=' ';
@@ -218,7 +217,7 @@ void atirar(int posicaonave){
         tabuleiro[posicaonave][1]='>';
 }
 
-/*responsável por mover o '+' verticalmente*/
+/*responsavel por mover o '+' verticalmente*/
 /* e responsavel pelas colisoes verticais entre o '+' o os mobs 'F' e 'X'*/
 void movernave(int c, int *posicaonave){
     if((*posicaonave)>1){
@@ -255,7 +254,7 @@ void movernave(int c, int *posicaonave){
     }
 }
 
-/*inicia a execução do jogo*/
+/*inicia a execucao do jogo*/
 void start(){
     int posicaonave=4;/*linha em que o '+' se encontra*/
     set_tabuleiro(posicaonave);
@@ -307,7 +306,7 @@ void instrucoes() {
     printf("Pressione ESPACO para retornar ao menu.\n");
     while(c!=32){
         c = getch();
-        if(c==32)/*ESPAÇO pressionado*/
+        if(c==32)/*ESPACO pressionado*/
             mainmenu();
     }
 }
@@ -339,11 +338,11 @@ void mainmenu() {
             /*s pressionado*/
             case 115:
                 system(CLEAR);
-                sair=1;/*impede que o jogo rode caso seja dada a instruçao de saida*/
+                sair=1;/*impede que o jogo rode caso seja dada a instrucao de saida*/
                 break;
             case 83:
                 system(CLEAR);
-                sair=1;/*impede que o jogo rode caso seja dada a instruçao de saida*/
+                sair=1;/*impede que o jogo rode caso seja dada a instrucao de saida*/
                 break;
             default:
                 break;
@@ -366,7 +365,7 @@ void jogo () {
     printf("Pressione ESPACO para continuar.\n");
     while(c!=32){
         c = getch();
-        if(c == 32)/*ESPAÇO pressionado*/
+        if(c == 32)/*ESPACO pressionado*/
             mainmenu();
     }
 }
