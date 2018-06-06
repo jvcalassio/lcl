@@ -1,13 +1,4 @@
 /*
-Universidade de Brasilia
-Instituto de Ciencias Exatas
-Departamento de Ciencia da Computacao
-
-Algoritmos e Programacao de Computadores - 1/2018
-
-Aluno(a): JOAO PEDRO ASSUNCAO COUTINHO
-Matricula: 18/0019813
-Turma: A
 Versao do compilador: 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.9)
 
 Descricao: O trabalho eh uma releitura do jogo River Raid, para Atari,
