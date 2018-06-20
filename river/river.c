@@ -3,6 +3,8 @@ Versao do compilador: 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.9)
 
 Descricao: O trabalho eh uma releitura do jogo River Raid, para Atari,
 feito em linguagem C, e executado diretamente no terminal.
+JOAO PEDRO ASSUNCAO COUTINHO
+github.com/joaocout
 */
 
 #include <unistd.h> 
@@ -276,6 +278,7 @@ void start(){
         print_tabuleiro();
         if(kbhit()==1){
             c = getch();
+            /*punicao com movimento aleatorio caso outra tecla seja presisonada*/
             if(c!=119 && c!=115 && c!=87 && c!=83 && c!=107 && c!=75){
                 int x = RAND();
                 if(x<=50)
