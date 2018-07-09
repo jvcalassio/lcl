@@ -264,9 +264,10 @@ void movertabuleiro(){
                 for(j=0; j<=numeroO; j++){
                     if(inimigosO[j].posicao==coluna+1 && inimigosO[j].vida>0)
                         inimigosO[j].vida--;
-                    else if(inimigosO[j].vida==0){
+                    if(inimigosO[j].vida==0 && inimigosO[j].posicao==coluna+1){
                         destruirO();
                         tabuleiro[linha][coluna]=' ';
+                        tabuleiro[linha][coluna+1]=' ';
                     }
                 }
             }
@@ -276,9 +277,10 @@ void movertabuleiro(){
                 for(j=0; j<=numeroO; j++){
                     if(inimigosO[j].posicao==coluna+2 && inimigosO[j].vida>0)
                         inimigosO[j].vida--;
-                    else if(inimigosO[j].vida==0){
+                    if(inimigosO[j].vida==0 && inimigosO[j].posicao==coluna+2){
                         destruirO();
                         tabuleiro[linha][coluna]=' ';
+                        tabuleiro[linha][coluna+2]=' ';
                     }
                 }
             }
