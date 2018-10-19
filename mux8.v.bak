@@ -1,0 +1,7 @@
+module mux8(
+	input [7:0] Dado,
+	input Escolha[2:0],
+	output Saida
+);
+assing Saida = Dado[Escolha];
+endmodule
