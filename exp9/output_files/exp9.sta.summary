@@ -1,0 +1,101 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow Model Setup 'inst9'
+Slack : 0.379
+TNS   : 0.000
+
+Type  : Slow Model Setup 'inst6'
+Slack : 0.990
+TNS   : 0.000
+
+Type  : Slow Model Setup 'inst37'
+Slack : 2.480
+TNS   : 0.000
+
+Type  : Slow Model Setup 'KEY[3]'
+Slack : 2.507
+TNS   : 0.000
+
+Type  : Slow Model Hold 'KEY[3]'
+Slack : -2.237
+TNS   : -2.237
+
+Type  : Slow Model Hold 'inst37'
+Slack : -2.210
+TNS   : -2.210
+
+Type  : Slow Model Hold 'inst6'
+Slack : -0.720
+TNS   : -0.720
+
+Type  : Slow Model Hold 'inst9'
+Slack : 0.391
+TNS   : 0.000
+
+Type  : Slow Model Minimum Pulse Width 'KEY[3]'
+Slack : -1.222
+TNS   : -2.222
+
+Type  : Slow Model Minimum Pulse Width 'inst37'
+Slack : -0.500
+TNS   : -1.000
+
+Type  : Slow Model Minimum Pulse Width 'inst6'
+Slack : -0.500
+TNS   : -1.000
+
+Type  : Slow Model Minimum Pulse Width 'inst9'
+Slack : -0.500
+TNS   : -1.000
+
+Type  : Fast Model Setup 'inst9'
+Slack : 0.665
+TNS   : 0.000
+
+Type  : Fast Model Setup 'inst6'
+Slack : 0.794
+TNS   : 0.000
+
+Type  : Fast Model Setup 'inst37'
+Slack : 1.535
+TNS   : 0.000
+
+Type  : Fast Model Setup 'KEY[3]'
+Slack : 1.603
+TNS   : 0.000
+
+Type  : Fast Model Hold 'KEY[3]'
+Slack : -1.223
+TNS   : -1.223
+
+Type  : Fast Model Hold 'inst37'
+Slack : -1.155
+TNS   : -1.155
+
+Type  : Fast Model Hold 'inst6'
+Slack : -0.414
+TNS   : -0.414
+
+Type  : Fast Model Hold 'inst9'
+Slack : 0.215
+TNS   : 0.000
+
+Type  : Fast Model Minimum Pulse Width 'KEY[3]'
+Slack : -1.222
+TNS   : -2.222
+
+Type  : Fast Model Minimum Pulse Width 'inst37'
+Slack : -0.500
+TNS   : -1.000
+
+Type  : Fast Model Minimum Pulse Width 'inst6'
+Slack : -0.500
+TNS   : -1.000
+
+Type  : Fast Model Minimum Pulse Width 'inst9'
+Slack : -0.500
+TNS   : -1.000
+
+------------------------------------------------------------
