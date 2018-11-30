@@ -1,0 +1,1 @@
+module intermitente(input clk, input a, output verde, output vermelho)
